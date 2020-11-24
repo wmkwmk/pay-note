@@ -1,34 +1,64 @@
 <template>
-  <div class="All">
-    <mu-container>
-      <mu-tabs
-        :value.sync="active1"
-        inverse
-        color="secondary"
-        text-color="rgba(0, 0, 0, .54)"
-        center
-      >
-        <mu-tab>month</mu-tab>
-        <mu-tab>year</mu-tab>
+  <div class="greenBg">
+    <div>
+      <mu-tabs :value.sync="active1" center class="greenBg" indicator-color="#fff">
+        <mu-tab>月账单</mu-tab>
+        <mu-tab>年账单</mu-tab>
       </mu-tabs>
       <div class="demo-text" v-if="active1 === 0">
-        <div class="myReservationRang">
+        <mu-date-input
+          v-model="startDate"
+          icon="today"
+          type="month"
+          format="YYYY年MM月"
+          no-display
+          container="bottomSheet"
+          style="margin:0;"
+          solo
+        ></mu-date-input>
+      </div>
+      <div  v-if="active1 === 1">
           <mu-date-input
-            v-model="startDate"
-            type="month"
-            format="YYYY年MM月"
-            no-display
-            container="bottomSheet"
-          ></mu-date-input>
-        </div>
+          v-model="startDate"
+          icon="today"
+          type="year"
+          format="YYYY年"
+          no-display
+          container="bottomSheet"
+          style="margin:0;"
+          solo
+        ></mu-date-input>
       </div>
-      <div class="demo-text" v-if="active1 === 1">
-        <div class="myReservationRang">
-          <mu-date-input v-model="startDate" label="选择日期" type="year" format="YYYY年MM月" no-display></mu-date-input>
-        </div>
-      </div>
+      <mu-list class="badge-list-wrap">
+        <mu-list-item>
+          <mu-list-item-content>
+            <mu-list-item-title class="font-write">支出</mu-list-item-title>
+          </mu-list-item-content>
+          <mu-list-item-content>
+            <mu-list-item-title class="font-write">￥1200.00</mu-list-item-title>
+          </mu-list-item-content>
+          <mu-list-item-action>
+            <mu-badge content="12" color="primary"></mu-badge>
+          </mu-list-item-action>
+        </mu-list-item>
+        <mu-divider></mu-divider>
+        <mu-list-item>
+          <mu-list-item-content>
+            <mu-list-item-title class="font-write">收入</mu-list-item-title>
+          </mu-list-item-content>
+          <mu-list-item-content>
+            <mu-list-item-title class="font-write">￥1200.00</mu-list-item-title>
+          </mu-list-item-content>
+          <mu-list-item-action>
+            <mu-badge content="12" color="primary"></mu-badge>
+          </mu-list-item-action>
+        </mu-list-item>
+      </mu-list>
+    </div>
+
+    <div style="background-color:#fff;border-radius:10px;padding-top:2em">
       <mu-expansion-panel expand>
-        <div slot="header">Panel 1</div>
+        <div slot="header">分类</div>
         <mu-list toggle-nested>
           <mu-list-item
             button
@@ -40,7 +70,7 @@
             <mu-list-item-action>
               <mu-icon value="grade"></mu-icon>
             </mu-list-item-action>
-            <mu-list-item-title>Stared</mu-list-item-title>
+            <mu-list-item-title>生活缴费</mu-list-item-title>
             <mu-list-item-action>
               <mu-icon class="toggle-icon" size="24" value="keyboard_arrow_down"></mu-icon>
             </mu-list-item-action>
@@ -54,29 +84,62 @@
               <mu-list-item-title>List Item 3</mu-list-item-title>
             </mu-list-item>
           </mu-list-item>
-          
+          <mu-list-item
+            button
+            :ripple="false"
+            nested
+            :open="open === 'stared'"
+            @toggle-nested="open = arguments[0] ? 'stared' : ''"
+          >
+            <mu-list-item-action>
+              <mu-icon value="grade"></mu-icon>
+            </mu-list-item-action>
+            <mu-list-item-title>餐饮美食</mu-list-item-title>
+            <mu-list-item-title>-6000</mu-list-item-title>
+            <mu-list-item-action>
+              <mu-icon class="toggle-icon" size="24" value="keyboard_arrow_down"></mu-icon>
+            </mu-list-item-action>
+            <mu-list-item button :ripple="false" slot="nested">
+              <mu-list-item-title>List Item 1</mu-list-item-title>
+            </mu-list-item>
+            <mu-list-item button :ripple="false" slot="nested">
+              <mu-list-item-title>List Item 2</mu-list-item-title>
+            </mu-list-item>
+            <mu-list-item button :ripple="false" slot="nested">
+              <mu-list-item-title>List Item 3</mu-list-item-title>
+            </mu-list-item>
+          </mu-list-item>
         </mu-list>
       </mu-expansion-panel>
       <mu-expansion-panel expand>
-        <div slot="header">Panel 1</div>
+        <div slot="header">统计</div>
         <div class="chartsDiv">
           <v-chart :options="barOption" theme="light" style="width:100%;height:100%" autoresize />
         </div>
       </mu-expansion-panel>
       <mu-expansion-panel expand>
-        <div slot="header">Panel 1</div>
+        <div slot="header">统计</div>
         <div class="chartsDiv">
           <v-chart :options="pieOption" theme="light" style="width:100%;height:100%" autoresize />
         </div>
       </mu-expansion-panel>
-    </mu-container>
+    </div>
   </div>
 </template>
 
-<style>
+<style scoped>
+.font-write{
+  color: #fff;
+}
 .chartsDiv {
   width: 100%;
   height: 200px;
+}
+.greenBg {
+  background-color: #42b983;
+}
+.mu-item-action{
+  min-width: 36px;
 }
 </style>
 
@@ -96,7 +159,8 @@ export default {
 
     return {
       active1: 0,
-      startDate: '',
+      open: '',
+      startDate: '2020-11',
       barOption: {
         xAxis: [
           {
@@ -150,7 +214,7 @@ export default {
         legend: {
           bottom: 10,
           left: 'center',
-          data: ['西凉', '益州', '兖州', '荆州', '幽州']
+          data: ['生活缴费', '美食', '兖州', '荆州', '幽州']
         },
         series: [
           {

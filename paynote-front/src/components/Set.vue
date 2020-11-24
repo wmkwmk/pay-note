@@ -1,7 +1,7 @@
 <template>
   <div class="Set">
     <mu-paper :z-depth="1" class="demo-list-wrap">
-      <mu-appbar color="purple">
+      <mu-appbar>
         <mu-button icon slot="left">
           <mu-icon value="menu"></mu-icon>
         </mu-button>Setting

@@ -16,8 +16,10 @@ export default new Router({
     },
     {
       path: '/List',
-      name: 'List',
-      component: List
+      components: {
+        default:List,
+        sel:Set
+      }
     },
     {
       path: '/Set',

@@ -36,7 +36,7 @@ index.html->App.vue->index.js->HelloWorld.vue
 v-on:   绑定事件
 1、底部导航 Bottom Navigation
 icon配置：index.html 添加
-    <link rel="stylesheet" href="https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css">
+    `<link rel="stylesheet" href="https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css">`
 设置to属性，router-link会渲染到router-view中
 2、顶部tab Tabs
 月账单-年账单
@@ -47,8 +47,16 @@ icon配置：index.html 添加
 2020/11/17
 1、图表-pie
 设置图表大小
-<v-chart :options="barOption" theme="light" style="width:100%;height:100%" autoresize/>
+`<v-chart :options="barOption" theme="light" style="width:100%;height:100%" autoresize/>`
 内联不生效，需要设置行内宽高，style="width:100%;height:100%"
 增加autoresize属性，这个 prop 用来指定 ECharts 实例在组件根元素尺寸变化时是否需要自动进行重绘。
 2、List
 3、搜索、排序、筛选
+
+#### 2020/11/18
+- 1、了解Markdown
+- 2、搞细节
+
+#### 2020/11/20
+- 1、搞UI
+
